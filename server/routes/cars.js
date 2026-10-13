@@ -5,5 +5,6 @@ const router = express.Router()
 
 router.get('/', CarsController.getCars)
 router.post('/', CarsController.createCar)
+router.get('/:id', CarsController.getCarById)
 
 export default router

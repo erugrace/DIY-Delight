@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../App.css'
+import { Link } from 'react-router-dom'
 
 const ViewCars = () => {
   const [cars, setCars] = useState([])
@@ -29,6 +30,9 @@ const ViewCars = () => {
             <p>Wheels: {car.wheels}</p>
             <p>Interior: {car.interior}</p>
             <p>Price: ${car.price}</p>
+            <Link to={`/customcars/${car.id}`}>
+            View Details
+            </Link>
           </div>
         ))
       )}

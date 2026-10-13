@@ -62,8 +62,56 @@ const getCarById = async (req, res) => {
   }
 }
 
+const updateCar = async (req, res) => {
+  const { id } = req.params
+
+  const {
+    name,
+    exterior,
+    wheels,
+    interior,
+    price
+  } = req.body
+
+  try {
+    const results = await pool.query(
+      `
+      UPDATE cars
+      SET name = $1,
+          exterior = $2,
+          wheels = $3,
+          interior = $4,
+          price = $5
+      WHERE id = $6
+      RETURNING *
+      `,
+      [
+        name,
+        exterior,
+        wheels,
+        interior,
+        price,
+        id
+      ]
+    )
+
+    if (results.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Car not found'
+      })
+    }
+
+    res.status(200).json(results.rows[0])
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    })
+  }
+}
+
 export default {
   getCars,
   createCar,
-  getCarById
+  getCarById,
+  updateCar
 }

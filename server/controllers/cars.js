@@ -109,9 +109,35 @@ const updateCar = async (req, res) => {
   }
 }
 
+const deleteCar = async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const results = await pool.query(
+      'DELETE FROM cars WHERE id = $1 RETURNING *',
+      [id]
+    )
+
+    if (results.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Car not found'
+      })
+    }
+
+    res.status(200).json({
+      message: 'Car deleted successfully'
+    })
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    })
+  }
+}
+
 export default {
   getCars,
   createCar,
   getCarById,
-  updateCar
+  updateCar, 
+  deleteCar
 }

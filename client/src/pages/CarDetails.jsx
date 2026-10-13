@@ -6,6 +6,19 @@ const CarDetails = () => {
   const { id } = useParams()
   const [car, setCar] = useState(null)
 
+  const handleDelete = async () => {
+    const options = {
+      method: 'DELETE'
+    }
+
+    await fetch(
+      `http://localhost:3000/api/cars/${id}`,
+      options
+    )
+
+    window.location = '/customcars'
+  }
+
   useEffect(() => {
     fetch(`http://localhost:3000/api/cars/${id}`)
       .then((response) => response.json())
@@ -39,6 +52,12 @@ const CarDetails = () => {
       <Link to="/customcars">
         Back to Cars
       </Link>
+
+      <br />
+
+      <button onClick={handleDelete}>
+        Delete Car
+      </button>
     </div>
   )
 }

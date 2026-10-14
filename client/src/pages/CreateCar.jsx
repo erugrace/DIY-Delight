@@ -14,6 +14,13 @@ const CreateCar = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
+    const errorMessage = validateCar(wheels, interior)
+
+if (errorMessage) {
+  alert(errorMessage)
+  return
+}
+
     const car = {
       name,
       exterior,

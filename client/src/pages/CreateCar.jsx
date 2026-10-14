@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import CarsAPI from '../services/CarsAPI'
 import '../App.css'
 import calculatePrice from '../utilities/calcPrice'
+import validateCar from '../utilities/validation'
 
 const CreateCar = () => {
   const [name, setName] = useState('')

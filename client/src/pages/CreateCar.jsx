@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import CarsAPI from '../services/CarsAPI'
 import '../App.css'
+import calculatePrice from '../utilities/calcPrice'
 
 const CreateCar = () => {
   const [name, setName] = useState('')
   const [exterior, setExterior] = useState('')
   const [wheels, setWheels] = useState('')
   const [interior, setInterior] = useState('')
-  const [price, setPrice] = useState(0)
+  const price = calculatePrice(exterior, wheels, interior)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -24,10 +25,27 @@ const CreateCar = () => {
 
     window.location = '/customcars'
   }
+  const getCarImage = () => {
+  if (exterior === 'Red') {
+    return '/red car.webp'
+  }
+
+  if (exterior === 'Blue') {
+    return 'blue car.jpeg'
+  }
+
+  return 'black car.jpeg'
+}
 
   return (
     <div>
       <h1>Customize Your Car</h1>
+
+     <img
+  src={getCarImage()}
+  alt={`${exterior || 'Black'} custom car`}
+  className="car-preview"
+/>
 
       <form onSubmit={handleSubmit}>
 
@@ -81,11 +99,7 @@ const CreateCar = () => {
 
         <label>
           Price:
-          <input
-            type="number"
-            value={price}
-            onChange={(event) => setPrice(event.target.value)}
-          />
+          <h2>Total Price: ${price.toLocaleString()}</h2>
         </label>
 
         <button type="submit">

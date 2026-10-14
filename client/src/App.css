@@ -10,3 +10,10 @@
     overflow-x: hidden;
     padding-bottom: 50px;
 }
+
+.car-preview {
+  width: 400px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
